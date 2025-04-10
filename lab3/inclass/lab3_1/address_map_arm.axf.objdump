@@ -1,0 +1,42 @@
+
+C:/Users/Seth/Desktop/346lab/lab3/inclass/lab3_1/address_map_arm.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e59f2078 	ldr	r2, [pc, #120]	; 80 <DECOMPRESSED+0x28>
+   4:	e59f3078 	ldr	r3, [pc, #120]	; 84 <DECOMPRESSED+0x2c>
+
+00000008 <LOOP1>:
+   8:	e4924004 	ldr	r4, [r2], #4
+   c:	e4925004 	ldr	r5, [r2], #4
+  10:	e3a06000 	mov	r6, #0
+  14:	e1560004 	cmp	r6, r4
+  18:	0a000004 	beq	30 <STOP>
+
+0000001c <LOOP2>:
+  1c:	e4835004 	str	r5, [r3], #4
+  20:	e2866001 	add	r6, r6, #1
+  24:	e1560004 	cmp	r6, r4
+  28:	1afffffb 	bne	1c <LOOP2>
+  2c:	0afffff5 	beq	8 <LOOP1>
+
+00000030 <STOP>:
+  30:	eafffffe 	b	30 <STOP>
+
+00000034 <COMPRESSED>:
+  34:	00000003 	.word	0x00000003
+  38:	0000eece 	.word	0x0000eece
+  3c:	00000002 	.word	0x00000002
+  40:	0000f00d 	.word	0x0000f00d
+  44:	00000004 	.word	0x00000004
+  48:	0000cafe 	.word	0x0000cafe
+  4c:	00000001 	.word	0x00000001
+  50:	0000abcd 	.word	0x0000abcd
+  54:	00000000 	.word	0x00000000
+
+00000058 <DECOMPRESSED>:
+	...
+  80:	00000034 	.word	0x00000034
+  84:	00000058 	.word	0x00000058

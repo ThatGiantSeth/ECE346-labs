@@ -1,0 +1,167 @@
+
+C:/Users/Seth/Desktop/346lab/proj1/proj1_1/gcd.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+.text /* executable code follows */
+
+GCD:
+    ADD SP, SP, #4
+   0:	e28dd004 	add	sp, sp, #4
+    LDR R6, [SP]
+   4:	e59d6000 	ldr	r6, [sp]
+    ADD SP, SP, #4
+   8:	e28dd004 	add	sp, sp, #4
+    LDR R5, [SP]
+   c:	e59d5000 	ldr	r5, [sp]
+
+00000010 <LOOP1>:
+
+LOOP1:
+    CMP R6, #0
+  10:	e3560000 	cmp	r6, #0
+    BEQ DONE
+  14:	0a00000a 	beq	44 <DONE>
+    CMP R5, R6
+  18:	e1550006 	cmp	r5, r6
+    BLT MODE
+  1c:	ba000001 	blt	28 <MODE>
+    SUB R5, R5, R6
+  20:	e0455006 	sub	r5, r5, r6
+    B LOOP1
+  24:	eafffff9 	b	10 <LOOP1>
+
+00000028 <MODE>:
+
+MODE:
+    STR LR, [SP]
+  28:	e58de000 	str	lr, [sp]
+    SUB SP, SP, #4
+  2c:	e24dd004 	sub	sp, sp, #4
+    STR R6, [SP]
+  30:	e58d6000 	str	r6, [sp]
+    SUB SP, SP, #4
+  34:	e24dd004 	sub	sp, sp, #4
+    STR R5, [SP]
+  38:	e58d5000 	str	r5, [sp]
+    SUB SP, SP, #4
+  3c:	e24dd004 	sub	sp, sp, #4
+    B GCD
+  40:	eaffffee 	b	0 <__cs3_interrupt_vector>
+
+00000044 <DONE>:
+    
+DONE:
+    STR R5, [SP]
+  44:	e58d5000 	str	r5, [sp]
+    SUB SP, SP, #4
+  48:	e24dd004 	sub	sp, sp, #4
+    BX LR
+  4c:	e12fff1e 	bx	lr
+
+00000050 <GCD>:
+.text /* executable code follows */
+
+GCD:
+    ADD SP, SP, #4
+  50:	e28dd004 	add	sp, sp, #4
+    LDR R6, [SP]
+  54:	e59d6000 	ldr	r6, [sp]
+    ADD SP, SP, #4
+  58:	e28dd004 	add	sp, sp, #4
+    LDR R5, [SP]
+  5c:	e59d5000 	ldr	r5, [sp]
+
+00000060 <LOOP1>:
+
+LOOP1:
+    CMP R6, #0
+  60:	e3560000 	cmp	r6, #0
+    BEQ DONE
+  64:	0a00000a 	beq	94 <DONE>
+    CMP R5, R6
+  68:	e1550006 	cmp	r5, r6
+    BLT MODE
+  6c:	ba000001 	blt	78 <MODE>
+    SUB R5, R5, R6
+  70:	e0455006 	sub	r5, r5, r6
+    B LOOP1
+  74:	eafffff9 	b	60 <LOOP1>
+
+00000078 <MODE>:
+
+MODE:
+  78:	e58de000 	str	lr, [sp]
+    STR LR, [SP]
+  7c:	e24dd004 	sub	sp, sp, #4
+    SUB SP, SP, #4
+  80:	e58d6000 	str	r6, [sp]
+    STR R6, [SP]
+  84:	e24dd004 	sub	sp, sp, #4
+    SUB SP, SP, #4
+  88:	e58d5000 	str	r5, [sp]
+    STR R5, [SP]
+  8c:	e24dd004 	sub	sp, sp, #4
+    SUB SP, SP, #4
+  90:	eaffffee 	b	50 <GCD>
+
+00000094 <DONE>:
+    B GCD
+    
+  94:	e58d5000 	str	r5, [sp]
+DONE:
+  98:	e24dd004 	sub	sp, sp, #4
+    STR R5, [SP]
+  9c:	e12fff1e 	bx	lr
+
+000000a0 <_start>:
+.text /* executable code follows */
+.global _start
+
+_start:
+
+    MOV SP, #DDR_END - 3
+  a0:	e3e0d10f 	mvn	sp, #-1073741821	; 0xc0000003
+    LDR R1, a
+  a4:	e59f1028 	ldr	r1, [pc, #40]	; d4 <a>
+    LDR R2, b
+  a8:	e59f2028 	ldr	r2, [pc, #40]	; d8 <b>
+
+    STR R1, [SP]
+  ac:	e58d1000 	str	r1, [sp]
+    SUB SP, SP, #4
+  b0:	e24dd004 	sub	sp, sp, #4
+    STR R2, [SP]
+  b4:	e58d2000 	str	r2, [sp]
+    SUB SP, SP, #4
+  b8:	e24dd004 	sub	sp, sp, #4
+
+    BL GCD
+  bc:	ebffffe3 	bl	50 <GCD>
+
+    ADD SP, SP, #4
+  c0:	e28dd004 	add	sp, sp, #4
+    LDR R3, [SP]
+  c4:	e59d3000 	ldr	r3, [sp]
+    LDR R4, =ANS
+  c8:	e59f4010 	ldr	r4, [pc, #16]	; e0 <ANS+0x4>
+    STR R3, [R4]
+  cc:	e5843000 	str	r3, [r4]
+
+000000d0 <STOP>:
+
+STOP:
+    B STOP;
+  d0:	eafffffe 	b	d0 <STOP>
+
+000000d4 <a>:
+  d4:	000004ed 	.word	0x000004ed
+
+000000d8 <b>:
+  d8:	00000979 	.word	0x00000979
+
+000000dc <ANS>:
+  dc:	00000000 	.word	0x00000000
+  e0:	000000dc 	.word	0x000000dc

@@ -1,0 +1,66 @@
+
+C:/Users/Seth/Desktop/346lab/lab3/takehome/lab3_3/address_map_arm.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e59f10b8 	ldr	r1, [pc, #184]	; c0 <LOOKUP+0x40>
+   4:	e59f20b8 	ldr	r2, [pc, #184]	; c4 <LOOKUP+0x44>
+   8:	e59f30b8 	ldr	r3, [pc, #184]	; c8 <LOOKUP+0x48>
+   c:	e3e04000 	mvn	r4, #0
+  10:	e5824004 	str	r4, [r2, #4]
+  14:	e3a05000 	mov	r5, #0
+  18:	e20570f0 	and	r7, r5, #240	; 0xf0
+  1c:	e1a07227 	lsr	r7, r7, #4
+  20:	e205800f 	and	r8, r5, #15
+  24:	e7939107 	ldr	r9, [r3, r7, lsl #2]
+  28:	e793a108 	ldr	r10, [r3, r8, lsl #2]
+  2c:	e1a0a40a 	lsl	r10, r10, #8
+  30:	e08ab009 	add	r11, r10, r9
+  34:	e582b000 	str	r11, [r2]
+
+00000038 <CHECK>:
+  38:	e5916000 	ldr	r6, [r1]
+  3c:	e3560001 	cmp	r6, #1
+  40:	bafffffc 	blt	38 <CHECK>
+
+00000044 <ADD_ONE>:
+  44:	e2855001 	add	r5, r5, #1
+  48:	e3550c01 	cmp	r5, #256	; 0x100
+  4c:	03a05000 	moveq	r5, #0
+  50:	e20570f0 	and	r7, r5, #240	; 0xf0
+  54:	e1a07227 	lsr	r7, r7, #4
+  58:	e205800f 	and	r8, r5, #15
+  5c:	e7939107 	ldr	r9, [r3, r7, lsl #2]
+  60:	e793a108 	ldr	r10, [r3, r8, lsl #2]
+  64:	e1a0a40a 	lsl	r10, r10, #8
+  68:	e189b00a 	orr	r11, r9, r10
+  6c:	e582b000 	str	r11, [r2]
+
+00000070 <WAIT>:
+  70:	e5916000 	ldr	r6, [r1]
+  74:	e3560000 	cmp	r6, #0
+  78:	1afffffc 	bne	70 <WAIT>
+  7c:	0affffed 	beq	38 <CHECK>
+
+00000080 <LOOKUP>:
+  80:	000000c0 	.word	0x000000c0
+  84:	000000cf 	.word	0x000000cf
+  88:	00000092 	.word	0x00000092
+  8c:	00000086 	.word	0x00000086
+  90:	0000008d 	.word	0x0000008d
+  94:	000000a4 	.word	0x000000a4
+  98:	000000a0 	.word	0x000000a0
+  9c:	000000ce 	.word	0x000000ce
+  a0:	00000080 	.word	0x00000080
+  a4:	00000084 	.word	0x00000084
+  a8:	00000088 	.word	0x00000088
+  ac:	000000a1 	.word	0x000000a1
+  b0:	000000b3 	.word	0x000000b3
+  b4:	00000083 	.word	0x00000083
+  b8:	000000b0 	.word	0x000000b0
+  bc:	000000b8 	.word	0x000000b8
+  c0:	ff200050 	.word	0xff200050
+  c4:	ff200060 	.word	0xff200060
+  c8:	00000080 	.word	0x00000080

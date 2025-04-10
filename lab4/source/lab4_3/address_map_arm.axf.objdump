@@ -1,0 +1,49 @@
+
+C:/Users/Seth/Desktop/346lab/lab4/takehome/lab4_3/address_map_arm.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e3a02a01 	mov	r2, #4096	; 0x1000
+   4:	e5923000 	ldr	r3, [r2]
+   8:	e1a04003 	mov	r4, r3
+
+0000000c <LOOP1>:
+   c:	e3a05000 	mov	r5, #0
+  10:	e2444001 	sub	r4, r4, #1
+  14:	e3540000 	cmp	r4, #0
+  18:	0a00000c 	beq	50 <STOP>
+
+0000001c <LOOP2>:
+  1c:	e2855001 	add	r5, r5, #1
+  20:	e1550004 	cmp	r5, r4
+  24:	cafffff8 	bgt	c <LOOP1>
+  28:	e1a06005 	mov	r6, r5
+  2c:	e2866001 	add	r6, r6, #1
+  30:	e7927105 	ldr	r7, [r2, r5, lsl #2]
+  34:	e7928106 	ldr	r8, [r2, r6, lsl #2]
+  38:	e1570008 	cmp	r7, r8
+  3c:	ca000000 	bgt	44 <SWAP>
+  40:	eafffff5 	b	1c <LOOP2>
+
+00000044 <SWAP>:
+  44:	e7828105 	str	r8, [r2, r5, lsl #2]
+  48:	e7827106 	str	r7, [r2, r6, lsl #2]
+  4c:	eafffff2 	b	1c <LOOP2>
+
+00000050 <STOP>:
+  50:	eafffffe 	b	50 <STOP>
+
+00000054 <LIST>:
+  54:	0000000a 	.word	0x0000000a
+  58:	0000002b 	.word	0x0000002b
+  5c:	00000019 	.word	0x00000019
+  60:	00000000 	.word	0x00000000
+  64:	00000004 	.word	0x00000004
+  68:	0000001f 	.word	0x0000001f
+  6c:	00000024 	.word	0x00000024
+  70:	00000000 	.word	0x00000000
+  74:	00000037 	.word	0x00000037
+  78:	0000000d 	.word	0x0000000d
+  7c:	00000017 	.word	0x00000017

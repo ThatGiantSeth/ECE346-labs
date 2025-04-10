@@ -1,0 +1,21 @@
+
+C:/Users/Seth/Desktop/346lab/lab2/lab2_2_3/address_map_arm.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e59f201c 	ldr	r2, [pc, #28]	; 24 <ICCEOIR+0x14>
+   4:	e59f301c 	ldr	r3, [pc, #28]	; 28 <ICCEOIR+0x18>
+   8:	e59f401c 	ldr	r4, [pc, #28]	; 2c <ICCEOIR+0x1c>
+
+0000000c <LOOP>:
+   c:	e5945000 	ldr	r5, [r4]
+  10:	e3550001 	cmp	r5, #1
+  14:	bafffffc 	blt	c <LOOP>
+  18:	e5935000 	ldr	r5, [r3]
+  1c:	e5825000 	str	r5, [r2]
+  20:	eafffff9 	b	c <LOOP>
+  24:	ff200000 	.word	0xff200000
+  28:	ff200060 	.word	0xff200060
+  2c:	ff200050 	.word	0xff200050

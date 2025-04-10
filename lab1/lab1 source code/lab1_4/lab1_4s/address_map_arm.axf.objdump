@@ -1,0 +1,46 @@
+
+C:/Users/Seth/Desktop/346lab/lab1/lab1_4s/address_map_arm.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e59f2060 	ldr	r2, [pc, #96]	; 68 <CHECKR+0x14>
+   4:	e3a03001 	mov	r3, #1
+   8:	e3a04080 	mov	r4, #128	; 0x80
+   c:	e3e054fd 	mvn	r5, #-50331648	; 0xfd000000
+  10:	e1a06003 	mov	r6, r3
+  14:	e3a07000 	mov	r7, #0
+
+00000018 <DISPLAYL>:
+  18:	e5826000 	str	r6, [r2]
+
+0000001c <DELAYL>:
+  1c:	e2877001 	add	r7, r7, #1
+  20:	e1570005 	cmp	r7, r5
+  24:	0a000000 	beq	2c <CHECKL>
+  28:	eafffffb 	b	1c <DELAYL>
+
+0000002c <CHECKL>:
+  2c:	e3a07000 	mov	r7, #0
+  30:	e1560004 	cmp	r6, r4
+  34:	0a000006 	beq	54 <CHECKR>
+  38:	e1a06086 	lsl	r6, r6, #1
+  3c:	eafffff5 	b	18 <DISPLAYL>
+
+00000040 <DISPLAYR>:
+  40:	e5826000 	str	r6, [r2]
+
+00000044 <DELAYR>:
+  44:	e2877001 	add	r7, r7, #1
+  48:	e1570005 	cmp	r7, r5
+  4c:	0a000000 	beq	54 <CHECKR>
+  50:	eafffffb 	b	44 <DELAYR>
+
+00000054 <CHECKR>:
+  54:	e3a07000 	mov	r7, #0
+  58:	e1560003 	cmp	r6, r3
+  5c:	0afffff2 	beq	2c <CHECKL>
+  60:	e1a060a6 	lsr	r6, r6, #1
+  64:	eafffff5 	b	40 <DISPLAYR>
+  68:	ff200000 	.word	0xff200000

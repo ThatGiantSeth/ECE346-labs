@@ -1,0 +1,44 @@
+
+C:/Users/Seth/Desktop/346lab/lab4/inclass/lab4_1/address_map_arm.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e59f205c 	ldr	r2, [pc, #92]	; 64 <ANS+0x4>
+   4:	e5923000 	ldr	r3, [r2]
+   8:	e3a04000 	mov	r4, #0
+   c:	e3a05000 	mov	r5, #0
+
+00000010 <LOOP>:
+  10:	e1540003 	cmp	r4, r3
+  14:	0a000003 	beq	28 <DONE>
+  18:	e5b26004 	ldr	r6, [r2, #4]!
+  1c:	e0855006 	add	r5, r5, r6
+  20:	e2844001 	add	r4, r4, #1
+  24:	eafffff9 	b	10 <LOOP>
+
+00000028 <DONE>:
+  28:	e59f7038 	ldr	r7, [pc, #56]	; 68 <ANS+0x8>
+  2c:	e5875000 	str	r5, [r7]
+
+00000030 <STOP>:
+  30:	eafffffe 	b	30 <STOP>
+
+00000034 <LIST>:
+  34:	0000000a 	.word	0x0000000a
+  38:	0000002b 	.word	0x0000002b
+  3c:	00000019 	.word	0x00000019
+  40:	00000000 	.word	0x00000000
+  44:	fffffffc 	.word	0xfffffffc
+  48:	0000001f 	.word	0x0000001f
+  4c:	ffffffdc 	.word	0xffffffdc
+  50:	00000000 	.word	0x00000000
+  54:	00000037 	.word	0x00000037
+  58:	fffffff3 	.word	0xfffffff3
+  5c:	00000017 	.word	0x00000017
+
+00000060 <ANS>:
+  60:	00000000 	.word	0x00000000
+  64:	00000034 	.word	0x00000034
+  68:	00000060 	.word	0x00000060

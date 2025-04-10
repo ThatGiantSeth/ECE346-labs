@@ -1,0 +1,55 @@
+
+C:/Users/Seth/Desktop/346lab/lab5/in-class/lab5_1/lab5_1.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+
+.text   /* executable code follows */
+.global _start
+
+_start:
+    LDR R1, =JTAG_UART_BASE
+   0:	e59f103c 	ldr	r1, [pc, #60]	; 44 <MESSAGE+0xc>
+    LDR R2, =MESSAGE
+   4:	e59f203c 	ldr	r2, [pc, #60]	; 48 <MESSAGE+0x10>
+
+00000008 <COUT>:
+
+COUT:
+    LDRB R3, [R2], #1
+   8:	e4d23001 	ldrb	r3, [r2], #1
+    CMP R3, #0
+   c:	e3530000 	cmp	r3, #0
+    BEQ CIN
+  10:	0a000001 	beq	1c <CIN>
+    STRB R3, [R1]
+  14:	e5c13000 	strb	r3, [r1]
+    B COUT
+  18:	eafffffa 	b	8 <COUT>
+
+0000001c <CIN>:
+
+CIN:
+    LDR R4, [R1]
+  1c:	e5914000 	ldr	r4, [r1]
+    AND R5, R4, #0x8000
+  20:	e2045902 	and	r5, r4, #32768	; 0x8000
+    CMP R5, #0
+  24:	e3550000 	cmp	r5, #0
+    BEQ CIN
+  28:	0afffffb 	beq	1c <CIN>
+    AND R4, R4, #0x00FF
+  2c:	e20440ff 	and	r4, r4, #255	; 0xff
+    STRB R4, [R1]
+  30:	e5c14000 	strb	r4, [r1]
+    B CIN
+  34:	eafffff8 	b	1c <CIN>
+
+00000038 <MESSAGE>:
+  38:	65707954 	.word	0x65707954
+  3c:	72656820 	.word	0x72656820
+  40:	00203a65 	.word	0x00203a65
+  44:	ff201000 	.word	0xff201000
+  48:	00000038 	.word	0x00000038
