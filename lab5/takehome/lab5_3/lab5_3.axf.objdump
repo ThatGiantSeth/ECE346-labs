@@ -1,0 +1,84 @@
+
+C:/Users/Seth/Desktop/346lab/lab5/takehome/lab5_3/lab5_3.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+
+.text   /* executable code follows */
+.global _start
+
+_start:
+    LDR R1, =JTAG_UART_BASE
+   0:	e59f1060 	ldr	r1, [pc, #96]	; 68 <MESSAGE+0x10>
+    LDR R2, =MESSAGE
+   4:	e59f2060 	ldr	r2, [pc, #96]	; 6c <MESSAGE+0x14>
+
+00000008 <COUT>:
+
+COUT:
+    LDRB R3, [R2], #1
+   8:	e4d23001 	ldrb	r3, [r2], #1
+    CMP R3, #0
+   c:	e3530000 	cmp	r3, #0
+    BEQ CIN
+  10:	0a000001 	beq	1c <CIN>
+    STRB R3, [R1]
+  14:	e5c13000 	strb	r3, [r1]
+    B COUT
+  18:	eafffffa 	b	8 <COUT>
+
+0000001c <CIN>:
+
+CIN:
+    LDR R4, [R1]
+  1c:	e5914000 	ldr	r4, [r1]
+    AND R5, R4, #0x8000
+  20:	e2045902 	and	r5, r4, #32768	; 0x8000
+    CMP R5, #0
+  24:	e3550000 	cmp	r5, #0
+    BEQ CIN
+  28:	0afffffb 	beq	1c <CIN>
+    AND R4, R4, #0x00FF
+  2c:	e20440ff 	and	r4, r4, #255	; 0xff
+    CMP R4, #27
+  30:	e354001b 	cmp	r4, #27
+    BEQ DONE
+  34:	0a000006 	beq	54 <DONE>
+
+00000038 <CHECK>:
+
+CHECK:
+    CMP R4, #96
+  38:	e3540060 	cmp	r4, #96	; 0x60
+    BLE PRINT
+  3c:	da000002 	ble	4c <PRINT>
+    CMP R4, #123
+  40:	e354007b 	cmp	r4, #123	; 0x7b
+    BGE PRINT
+  44:	aa000000 	bge	4c <PRINT>
+    SUB R4, R4, #32
+  48:	e2444020 	sub	r4, r4, #32
+
+0000004c <PRINT>:
+
+PRINT:
+    STRB R4, [R1]
+  4c:	e5c14000 	strb	r4, [r1]
+    B CIN
+  50:	eafffff1 	b	1c <CIN>
+
+00000054 <DONE>:
+    
+DONE:
+    B DONE
+  54:	eafffffe 	b	54 <DONE>
+
+00000058 <MESSAGE>:
+  58:	69706143 	.word	0x69706143
+  5c:	696c6174 	.word	0x696c6174
+  60:	203a657a 	.word	0x203a657a
+  64:	00000000 	.word	0x00000000
+  68:	ff201000 	.word	0xff201000
+  6c:	00000058 	.word	0x00000058

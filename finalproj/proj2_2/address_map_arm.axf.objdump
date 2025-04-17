@@ -1,0 +1,126 @@
+
+C:/Users/Seth/Desktop/346lab/finalproj/proj2_2/address_map_arm.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e28dd004 	add	sp, sp, #4
+   4:	e59d2000 	ldr	r2, [sp]
+   8:	e592b000 	ldr	r11, [r2]
+   c:	e1a0400b 	mov	r4, r11
+
+00000010 <LOOP1>:
+  10:	e3a05000 	mov	r5, #0
+  14:	e2444001 	sub	r4, r4, #1
+  18:	e3540000 	cmp	r4, #0
+  1c:	0a00000c 	beq	54 <RETURN>
+
+00000020 <LOOP2>:
+  20:	e2855001 	add	r5, r5, #1
+  24:	e1550004 	cmp	r5, r4
+  28:	cafffff8 	bgt	10 <LOOP1>
+  2c:	e1a06005 	mov	r6, r5
+  30:	e2866001 	add	r6, r6, #1
+  34:	e7927105 	ldr	r7, [r2, r5, lsl #2]
+  38:	e7928106 	ldr	r8, [r2, r6, lsl #2]
+  3c:	e1570008 	cmp	r7, r8
+  40:	ca000000 	bgt	48 <SWAP>
+  44:	eafffff5 	b	20 <LOOP2>
+
+00000048 <SWAP>:
+  48:	e7828105 	str	r8, [r2, r5, lsl #2]
+  4c:	e7827106 	str	r7, [r2, r6, lsl #2]
+  50:	eafffff2 	b	20 <LOOP2>
+
+00000054 <RETURN>:
+  54:	e12fff1e 	bx	lr
+
+00000058 <B_SORT>:
+.text /* executable code follows */
+
+B_SORT:
+    ADD SP, SP, #4
+  58:	e28dd004 	add	sp, sp, #4
+    LDR R2, [SP]
+  5c:	e59d2000 	ldr	r2, [sp]
+    LDR R11, [R2]
+  60:	e592b000 	ldr	r11, [r2]
+    MOV R4, R11
+  64:	e1a0400b 	mov	r4, r11
+
+00000068 <LOOP1>:
+
+LOOP1:
+    MOV R5, #0
+  68:	e3a05000 	mov	r5, #0
+    SUB R4, #1
+  6c:	e2444001 	sub	r4, r4, #1
+    CMP R4, #0
+  70:	e3540000 	cmp	r4, #0
+    BEQ RETURN
+  74:	0a00000c 	beq	ac <RETURN>
+
+00000078 <LOOP2>:
+
+LOOP2:
+    ADD R5, #1
+  78:	e2855001 	add	r5, r5, #1
+    CMP R5, R4
+  7c:	e1550004 	cmp	r5, r4
+    BGT LOOP1
+  80:	cafffff8 	bgt	68 <LOOP1>
+
+    MOV R6, R5
+  84:	e1a06005 	mov	r6, r5
+    ADD R6, #1
+  88:	e2866001 	add	r6, r6, #1
+
+    LDR R7, [R2, R5, LSL #2]
+  8c:	e7927105 	ldr	r7, [r2, r5, lsl #2]
+    LDR R8, [R2, R6, LSL #2]
+  90:	e7928106 	ldr	r8, [r2, r6, lsl #2]
+
+    CMP R7, R8
+  94:	e1570008 	cmp	r7, r8
+    BGT SWAP
+  98:	ca000000 	bgt	a0 <SWAP>
+    B LOOP2
+  9c:	eafffff5 	b	78 <LOOP2>
+
+000000a0 <SWAP>:
+
+SWAP:
+    STR R8, [R2, R5, LSL #2]
+  a0:	e7828105 	str	r8, [r2, r5, lsl #2]
+    STR R7, [R2, R6, LSL #2]
+  a4:	e7827106 	str	r7, [r2, r6, lsl #2]
+    B LOOP2
+  a8:	eafffff2 	b	78 <LOOP2>
+
+000000ac <RETURN>:
+
+RETURN:
+  ac:	e12fff1e 	bx	lr
+
+000000b0 <_start>:
+
+.text /* executable code follows */
+.global _start
+
+_start:
+    MOV SP, #DDR_END - 3
+  b0:	e3e0d10f 	mvn	sp, #-1073741821	; 0xc0000003
+    LDR R12, =0x1000
+  b4:	e3a0ca01 	mov	r12, #4096	; 0x1000
+    STR R12, [SP]
+  b8:	e58dc000 	str	r12, [sp]
+    SUB SP, SP, #4
+  bc:	e24dd004 	sub	sp, sp, #4
+    BL B_SORT
+  c0:	ebffffe4 	bl	58 <B_SORT>
+
+000000c4 <STOP>:
+
+STOP:
+  c4:	eafffffe 	b	c4 <STOP>

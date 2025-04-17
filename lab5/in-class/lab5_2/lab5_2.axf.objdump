@@ -1,0 +1,218 @@
+
+C:/Users/Seth/Desktop/346lab/lab5/in-class/lab5_2/lab5_2.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+.equ JTAG_UART_BASE, 0xFF201000
+
+.text /* executable code follows */
+
+NUM2STR:
+    ADD SP, SP, #4
+   0:	e28dd004 	add	sp, sp, #4
+    LDR R5, [SP]
+   4:	e59d5000 	ldr	r5, [sp]
+    LDR R9, =JTAG_UART_BASE
+   8:	e59f90a8 	ldr	r9, [pc, #168]	; b8 <MESSAGE+0x18>
+
+    MOV R6, #0
+   c:	e3a06000 	mov	r6, #0
+    MOV R7, #0
+  10:	e3a07000 	mov	r7, #0
+    MOV R8, #10
+  14:	e3a0800a 	mov	r8, #10
+
+    STR R6, [SP]
+  18:	e58d6000 	str	r6, [sp]
+    SUB SP, SP, #4
+  1c:	e24dd004 	sub	sp, sp, #4
+
+00000020 <DIV>:
+
+DIV:
+    SUB R5, R5, R8
+  20:	e0455008 	sub	r5, r5, r8
+    CMP R5, #0
+  24:	e3550000 	cmp	r5, #0
+    BLT MODE
+  28:	ba000001 	blt	34 <MODE>
+    ADD R7, R7, #1
+  2c:	e2877001 	add	r7, r7, #1
+    B DIV
+  30:	eafffffa 	b	20 <DIV>
+
+00000034 <MODE>:
+
+MODE:
+    ADD R5, #58
+  34:	e285503a 	add	r5, r5, #58	; 0x3a
+    STR R5, [SP]
+  38:	e58d5000 	str	r5, [sp]
+    SUB SP, SP, #4
+  3c:	e24dd004 	sub	sp, sp, #4
+    MOV R5, R7
+  40:	e1a05007 	mov	r5, r7
+    MOV R7, #0
+  44:	e3a07000 	mov	r7, #0
+    CMP R5, #0
+  48:	e3550000 	cmp	r5, #0
+    BNE DIV
+  4c:	1afffff3 	bne	20 <DIV>
+
+00000050 <PRINT>:
+
+PRINT:
+    ADD SP, SP, #4
+  50:	e28dd004 	add	sp, sp, #4
+    LDR R10, [SP]
+  54:	e59da000 	ldr	r10, [sp]
+    CMP R10, #0
+  58:	e35a0000 	cmp	r10, #0
+    BEQ RETURN
+  5c:	0a000001 	beq	68 <RETURN>
+    STR R10, [R9]
+  60:	e589a000 	str	r10, [r9]
+    B PRINT  
+  64:	eafffff9 	b	50 <PRINT>
+
+00000068 <RETURN>:
+
+RETURN:
+  68:	e12fff1e 	bx	lr
+
+0000006c <_start>:
+
+.text /* executable code follows */
+.global _start
+
+_start:
+    LDR R0, =24680
+  6c:	e59f0048 	ldr	r0, [pc, #72]	; bc <MESSAGE+0x1c>
+    LDR R1, =JTAG_UART_BASE
+  70:	e59f1040 	ldr	r1, [pc, #64]	; b8 <MESSAGE+0x18>
+    LDR R2, =MESSAGE
+  74:	e59f2044 	ldr	r2, [pc, #68]	; c0 <MESSAGE+0x20>
+    MOV SP, #DDR_END - 3
+  78:	e3e0d10f 	mvn	sp, #-1073741821	; 0xc0000003
+
+0000007c <COUT>:
+
+COUT:
+    LDRB R3, [R2], #1
+  7c:	e4d23001 	ldrb	r3, [r2], #1
+    CMP R3, #0
+  80:	e3530000 	cmp	r3, #0
+    BEQ PRINT_OUT
+  84:	0a000001 	beq	90 <PRINT_OUT>
+    STRB R3, [R1]
+  88:	e5c13000 	strb	r3, [r1]
+    B COUT
+  8c:	eafffffa 	b	7c <COUT>
+
+00000090 <PRINT_OUT>:
+
+PRINT_OUT:
+    STR R0, [SP]
+  90:	e58d0000 	str	r0, [sp]
+    SUB SP, SP, #4
+  94:	e24dd004 	sub	sp, sp, #4
+    BL NUM2STR
+  98:	ebffffd8 	bl	0 <__cs3_interrupt_vector>
+
+0000009c <STOP>:
+
+STOP:
+    B STOP
+  9c:	eafffffe 	b	9c <STOP>
+
+000000a0 <MESSAGE>:
+  a0:	626d754e 	.word	0x626d754e
+  a4:	74207265 	.word	0x74207265
+  a8:	7270206f 	.word	0x7270206f
+  ac:	20746e69 	.word	0x20746e69
+  b0:	2074756f 	.word	0x2074756f
+  b4:	0000203d 	.word	0x0000203d
+  b8:	ff201000 	.word	0xff201000
+  bc:	00006068 	.word	0x00006068
+  c0:	000000a0 	.word	0x000000a0
+
+000000c4 <NUM2STR>:
+.equ JTAG_UART_BASE, 0xFF201000
+
+.text /* executable code follows */
+
+NUM2STR:
+    ADD SP, SP, #4
+  c4:	e28dd004 	add	sp, sp, #4
+    LDR R5, [SP]
+  c8:	e59d5000 	ldr	r5, [sp]
+    LDR R9, =JTAG_UART_BASE
+  cc:	e59f905c 	ldr	r9, [pc, #92]	; 130 <RETURN+0x4>
+
+    MOV R6, #0
+  d0:	e3a06000 	mov	r6, #0
+    MOV R7, #0
+  d4:	e3a07000 	mov	r7, #0
+    MOV R8, #10
+  d8:	e3a0800a 	mov	r8, #10
+
+    STR R6, [SP]
+  dc:	e58d6000 	str	r6, [sp]
+    SUB SP, SP, #4
+  e0:	e24dd004 	sub	sp, sp, #4
+
+000000e4 <DIV>:
+
+DIV:
+    SUB R5, R5, R8
+  e4:	e0455008 	sub	r5, r5, r8
+    CMP R5, #0
+  e8:	e3550000 	cmp	r5, #0
+    BLT MODE
+  ec:	ba000001 	blt	f8 <MODE>
+    ADD R7, R7, #1
+  f0:	e2877001 	add	r7, r7, #1
+    B DIV
+  f4:	eafffffa 	b	e4 <DIV>
+
+000000f8 <MODE>:
+
+MODE:
+    ADD R5, #58
+  f8:	e285503a 	add	r5, r5, #58	; 0x3a
+    STR R5, [SP]
+  fc:	e58d5000 	str	r5, [sp]
+    SUB SP, SP, #4
+ 100:	e24dd004 	sub	sp, sp, #4
+    MOV R5, R7
+ 104:	e1a05007 	mov	r5, r7
+    MOV R7, #0
+ 108:	e3a07000 	mov	r7, #0
+    CMP R5, #0
+ 10c:	e3550000 	cmp	r5, #0
+    BNE DIV
+ 110:	1afffff3 	bne	e4 <DIV>
+
+00000114 <PRINT>:
+
+PRINT:
+    ADD SP, SP, #4
+ 114:	e28dd004 	add	sp, sp, #4
+    LDR R10, [SP]
+ 118:	e59da000 	ldr	r10, [sp]
+    CMP R10, #0
+ 11c:	e35a0000 	cmp	r10, #0
+    BEQ RETURN
+ 120:	0a000001 	beq	12c <RETURN>
+    STR R10, [R9]
+ 124:	e589a000 	str	r10, [r9]
+    B PRINT  
+ 128:	eafffff9 	b	114 <PRINT>
+
+0000012c <RETURN>:
+
+RETURN:
+ 12c:	e12fff1e 	bx	lr
+ 130:	ff201000 	.word	0xff201000

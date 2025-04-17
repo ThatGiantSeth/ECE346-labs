@@ -1,6 +1,6 @@
 .include "num2str.s"
-.equ DDR_END, 0xFF201000
-.equ JTAG_UART_BASE, 0x3FFFFFFF
+.equ DDR_END, 0x3FFFFFFF
+.equ JTAG_UART_BASE, 0xFF201000
 
 .text /* executable code follows */
 .global _start
@@ -9,7 +9,7 @@ _start:
     LDR R0, =24680
     LDR R1, =JTAG_UART_BASE
     LDR R2, =MESSAGE
-    MOV, SP, #DDR_END - 3
+    MOV SP, #DDR_END - 3
 
 COUT:
     LDRB R3, [R2], #1
@@ -22,6 +22,9 @@ PRINT_OUT:
     STR R0, [SP]
     SUB SP, SP, #4
     BL NUM2STR
+
+STOP:
+    B STOP
 
 MESSAGE:
     .asciz "Number to print out = "
